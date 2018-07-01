@@ -1,0 +1,92 @@
+<application>
+  <component name="RecentProjectsManager">
+    <option name="recentPaths">
+      <list>
+        <option value="$USER_HOME$/slimefinder/Slimefinder" />
+        <option value="$USER_HOME$/relex/master/processor-edge/kernel" />
+        <option value="$USER_HOME$/progressbar" />
+        <option value="$USER_HOME$/progressbar/progressbar" />
+        <option value="$USER_HOME$/slimefinder" />
+        <option value="$USER_HOME$/code/processor-edge/kernel" />
+      </list>
+    </option>
+    <option name="openPaths">
+      <list>
+        <option value="$USER_HOME$/slimefinder/Slimefinder" />
+      </list>
+    </option>
+    <option name="lastPath" value="$USER_HOME$/slimefinder/Slimefinder" />
+    <option name="pid" value="" />
+    <option name="additionalInfo">
+      <map>
+        <entry key="$USER_HOME$/code/processor-edge/kernel">
+          <value>
+            <RecentProjectMetaInfo>
+              <option name="build" value="IC-181.5087.20" />
+              <option name="productionCode" value="IC" />
+              <option name="binFolder" value="$APPLICATION_HOME_DIR$/bin" />
+              <option name="projectOpenTimestamp" value="1527748768956" />
+              <option name="buildTimestamp" value="1526508278516" />
+            </RecentProjectMetaInfo>
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/progressbar">
+          <value>
+            <RecentProjectMetaInfo>
+              <option name="build" value="IC-181.5087.20" />
+              <option name="productionCode" value="IC" />
+              <option name="binFolder" value="$APPLICATION_HOME_DIR$/bin" />
+              <option name="projectOpenTimestamp" value="1529865727471" />
+              <option name="buildTimestamp" value="1526508286004" />
+            </RecentProjectMetaInfo>
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/progressbar/progressbar">
+          <value>
+            <RecentProjectMetaInfo>
+              <option name="build" value="IC-181.5087.20" />
+              <option name="productionCode" value="IC" />
+              <option name="binFolder" value="$APPLICATION_HOME_DIR$/bin" />
+              <option name="projectOpenTimestamp" value="1529854067437" />
+              <option name="buildTimestamp" value="1526508293417" />
+            </RecentProjectMetaInfo>
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/relex/master/processor-edge/kernel">
+          <value>
+            <RecentProjectMetaInfo>
+              <option name="build" value="IC-181.5087.20" />
+              <option name="productionCode" value="IC" />
+              <option name="binFolder" value="$APPLICATION_HOME_DIR$/bin" />
+              <option name="projectOpenTimestamp" value="1530219341255" />
+              <option name="buildTimestamp" value="1526508278515" />
+            </RecentProjectMetaInfo>
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/slimefinder">
+          <value>
+            <RecentProjectMetaInfo>
+              <option name="build" value="IC-181.5087.20" />
+              <option name="productionCode" value="IC" />
+              <option name="binFolder" value="$APPLICATION_HOME_DIR$/bin" />
+              <option name="projectOpenTimestamp" value="1529605852727" />
+              <option name="buildTimestamp" value="1526508271916" />
+            </RecentProjectMetaInfo>
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/slimefinder/Slimefinder">
+          <value>
+            <RecentProjectMetaInfo>
+              <option name="build" value="IC-181.5087.20" />
+              <option name="productionCode" value="IC" />
+              <option name="binFolder" value="$APPLICATION_HOME_DIR$/bin" />
+              <option name="projectOpenTimestamp" value="1530436220504" />
+              <option name="buildTimestamp" value="1526508272355" />
+            </RecentProjectMetaInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="lastProjectLocation" value="$USER_HOME$/progressbar" />
+  </component>
+</application>
