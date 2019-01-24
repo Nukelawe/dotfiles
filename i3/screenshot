@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# directory where screenshots are saved
+DIR="/home/nukelawe/screenshots"
+
+# window id of the entire workspace
+WID="root"
+if [ "$1" == "focus" ]
+then
+	# id of the window in focus
+	WID="$(xdotool getwindowfocus)"
+fi
+
+FILENAME="$(date +%y.%m.%d-%H.%M.%S)"
+import -window $WID ${DIR}/${FILENAME}.png
