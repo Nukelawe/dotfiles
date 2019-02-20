@@ -1,5 +1,5 @@
 #
-# .bashrc
+# ~/.bash_profile
 #
 
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
@@ -9,3 +9,4 @@ fi
 source .bash_aliases
 
 export PATH="$PATH:$HOME/bin"
+
