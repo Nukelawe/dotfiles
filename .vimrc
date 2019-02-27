@@ -178,6 +178,7 @@ set showcmd
 set t_Co=256 " Enable 256 colors
 set encoding=utf8 "Set utf8 as standard encoding and en_US as the standard language
 set ffs=unix,dos,mac "Use Unix as the standard file type
+set background=dark
 
 syntax enable "Enable syntax highlighting
 colorscheme kalahari
