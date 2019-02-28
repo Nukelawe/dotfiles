@@ -181,6 +181,7 @@ set ffs=unix,dos,mac "Use Unix as the standard file type
 set background=dark
 
 syntax enable "Enable syntax highlighting
+au BufReadPost *.gs set syntax=javascript
 colorscheme kalahari
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
