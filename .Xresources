@@ -1,9 +1,11 @@
+XTerm.termName: xterm-256color
+
 XTerm.vt100.foreground: white
 XTerm.vt100.background: black
 
 XTerm.vt100.locale: true
 XTerm.vt100.renderFont: true
-XTerm.vt100.faceName: Courier:size=10:antialias=true
+XTerm.vt100.faceName: Tamsyn7x13b:size=10:antialias=true
 XTerm.vt100.utf8Fonts.font: 7x13
 
 XTerm.vt100.translations: #override \n\
