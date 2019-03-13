@@ -333,10 +333,13 @@ inoremap <M-k> <C-o><Down>
 inoremap <M-l> <C-o><Right>
 
 " ijkl as arrows in normal and visual modes
-noremap i k
-noremap k j
+noremap i gk
+noremap k gj
+noremap <Up> gk
+noremap <Down> gj
+noremap gi k
+noremap gk j
 noremap j h
-noremap i k
 
 " ctrl-arrows for WORDS, shift-arrows for words
 noremap <C-j> B
