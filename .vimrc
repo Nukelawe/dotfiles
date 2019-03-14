@@ -103,7 +103,7 @@ autocmd VimResized * let &scroll = (8 * winheight(0) / 10)
 autocmd VimEnter * let &scroll = (8 * winheight(0) / 10)
 
 " Avoid garbled characters in Chinese language windows OS
-let $LANG='en' 
+let $LANG='en'
 set langmenu=en
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
@@ -239,6 +239,22 @@ noremap <S-M-Up> <C-w>K
 noremap <S-M-Left> <C-w>H
 noremap <S-M-Down> <C-w>J
 noremap <S-M-Right> <C-w>L
+inoremap <M-i> <C-o><C-w>k
+inoremap <M-j> <C-o><C-w>h
+inoremap <M-k> <C-o><C-w>j
+inoremap <M-l> <C-o><C-w>l
+inoremap <S-M-i> <C-o><C-w>K
+inoremap <S-M-j> <C-o><C-w>H
+inoremap <S-M-k> <C-o><C-w>J
+inoremap <S-M-l> <C-o><C-w>L
+inoremap <M-Up> <C-o><C-w>k
+inoremap <M-Left> <C-o><C-w>h
+inoremap <M-Down> <C-o><C-w>j
+inoremap <M-Right> <C-o><C-w>l
+inoremap <S-M-Up> <C-o><C-w>K
+inoremap <S-M-Left> <C-o><C-w>H
+inoremap <S-M-Down> <C-o><C-w>J
+inoremap <S-M-Right> <C-o><C-w>L
 noremap <M-_> <C-w>_
 noremap <M-q> <C-w>q
 noremap <M-S-t> <C-w>T
@@ -326,20 +342,20 @@ noremap U :redo<cr>
 noremap h i
 noremap H I
 
-" alt-ijkl as arrows in insert mode
-inoremap <M-i> <C-o><Up>
-inoremap <M-j> <C-o><Left>
-inoremap <M-k> <C-o><Down>
-inoremap <M-l> <C-o><Right>
-
-" ijkl as arrows in normal and visual modes
+" ijkl as arrows in normal and visual modes.
+" Up and down move by visual lines
 noremap i gk
-noremap k gj
 noremap <Up> gk
+inoremap <Up> <C-o>gk
+noremap j h
+noremap k gj
+inoremap <Down> <C-o>gj
 noremap <Down> gj
+" right is unchanged (l)
+
+" preceding arrow key with g moves up and down by a logical line
 noremap gi k
 noremap gk j
-noremap j h
 
 " ctrl-arrows for WORDS, shift-arrows for words
 noremap <C-j> B
