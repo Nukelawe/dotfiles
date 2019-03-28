@@ -30,17 +30,17 @@ bindsym $alt+t exec xterm
 bindsym $win+q kill
 
 # start dmenu (a program launcher)
-bindsym $win+space exec dmenu_run -i -l 6
+#bindsym $win+space exec i3-dmenu-desktop -i -l 6
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-# bindsym $win+d exec --no-startup-id i3-dmenu-desktop
+bindsym $win+space exec --no-startup-id i3-dmenu-desktop --dmenu='dmenu -i -l 6'
 
 # change focus
 bindsym $win+j focus left
 bindsym $win+k focus down
-bindsym $win+l focus up
-bindsym $win+semicolon focus right
+bindsym $win+i focus up
+bindsym $win+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $win+Left focus left
@@ -51,8 +51,8 @@ bindsym $win+Right focus right
 # move focused window
 bindsym $win+Shift+j move left
 bindsym $win+Shift+k move down
-bindsym $win+Shift+l move up
-bindsym $win+Shift+semicolon move right
+bindsym $win+Shift+l move right
+bindsym $win+Shift+i move up
 
 # alternatively, you can use the cursor keys:
 bindsym $win+Shift+Left move left
@@ -86,16 +86,16 @@ bindsym $F11 fullscreen toggle
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1: terminals"
-set $ws2 "2: chrome"
-set $ws3 "3: text editors"
-set $ws4 "4: ide"
-set $ws5 "5: "
-set $ws6 "6: "
-set $ws7 "7: "
-set $ws8 "8: discord"
-set $ws9 "9: consoles"
-set $ws10 "10: "
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
 
 # switch to workspace
 bindsym $win+1 workspace $ws1
@@ -159,10 +159,24 @@ mode "resize" {
 
 bindsym $win+r mode "resize"
 
+bindsym $win+p bar mode toggle 0; bar mode toggle 1
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+        status_command i3status -c ~/.config/i3/i3status.conf.minimal
+        id 0
+        mode dock
+        modifier none
+        tray_output none
+}
+
+bar {
+        status_command i3status -c ~/.config/i3/i3status.conf.performance
+        id 1
+        mode hide
+        modifier none
+        tray_output none
 }
 
 # Take screenshot with printscreen key. Modifier key prints only active window
@@ -183,6 +197,7 @@ for_window [class="jetbrains-idea-ce"] move container to workspace $ws4
 for_window [class="MATLAB*"] move container to workspace $ws4
 for_window [title="Minecraft Launcher*"] move container to workspace $ws9
 for_window [class="libreoffice"] move container to workspace $ws4
+#for_window [class="mcedit.py"] fullscreen toggle
 
 # Set default layouts for workspaces
 for_window [workspace=$ws9] layout tabbed
