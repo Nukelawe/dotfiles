@@ -40,7 +40,7 @@ endif
 
 " initialize plugins
 call plug#begin()
-Plug 'fabi1cazenave/kalahari.vim'
+Plug 'Nukelawe/kalahari.vim'
 
 " Clean and install from https://github.com/nhooyr/dotfiles/blob/fc64cf3c551d61c608ddee7e2b1b68e2b9a09074/.config/nvim/init.vim#L167-L186
 let s:need_install = keys(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
