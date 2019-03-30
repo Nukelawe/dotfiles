@@ -43,9 +43,9 @@ call plug#begin()
 Plug 'Nukelawe/kalahari.vim'
 
 " Clean and install from https://github.com/nhooyr/dotfiles/blob/fc64cf3c551d61c608ddee7e2b1b68e2b9a09074/.config/nvim/init.vim#L167-L186
-let s:need_install = keys(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
-let s:need_clean = len(s:need_install) + len(globpath(g:plug_home, '*', 0, 1)) > len(filter(values(g:plugs), 'stridx(v:val.dir, g:plug_home) == 0'))
-let s:need_install = join(s:need_install, ' ')
+let s:need_install_list = keys(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
+let s:need_clean = len(s:need_install_list) + len(globpath(g:plug_home, '*', 0, 1)) > len(filter(values(g:plugs), 'stridx(v:val.dir, g:plug_home) == 0'))
+let s:need_install = join(s:need_install_list, ' ')
 if has('vim_starting')
   if s:need_clean
     autocmd VimEnter * PlugClean!
