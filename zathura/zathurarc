@@ -1,0 +1,8 @@
+map i scroll up
+map k scroll down
+map j scroll left
+map l scroll right
+map I scroll full-up
+map K scroll full-down
+
+set guioptions ""
