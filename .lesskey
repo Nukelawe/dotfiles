@@ -7,11 +7,11 @@ k         forw-line
 ^E        forw-line
 ^N        forw-line
 i         back-line
+I         back-scroll
 y         back-line
 ^Y        back-line
 ^P        back-line
-K         forw-line-force
-I         back-line-force
+K         forw-scroll
 d         forw-scroll
 ^D        forw-scroll
 ^K        forw-scroll
