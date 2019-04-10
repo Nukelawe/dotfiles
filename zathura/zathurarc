@@ -5,4 +5,4 @@ map l scroll right
 map I scroll full-up
 map K scroll full-down
 
-set guioptions ""
+set guioptions "s"
