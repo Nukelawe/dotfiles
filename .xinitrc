@@ -4,6 +4,7 @@ userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
+userkeys=$HOME/.Xkeymap
 
 # merge in defaults and keymaps
 if [ -f $sysresources ]; then
@@ -37,3 +38,7 @@ setxkbmap -layout fi # Set keyboard layout
 xset r rate 200 30 # Set key delay and rate
 # start the window manager i3
 exec i3 -c $HOME/.config/i3/config
+
+if [ -f "$userkeys" ]; then
+	xkbcomp .Xkeymap $DISPLAY
+fi
