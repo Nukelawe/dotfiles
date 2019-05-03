@@ -165,11 +165,12 @@ bindsym $win+r mode "resize"
 # finds out, if available)
 
 bar {
-        status_command i3status -c ~/.config/i3/i3status.conf
-        id 0
-        mode dock
-        modifier none
-        tray_output none
+	status_command i3status -c ~/.config/i3/i3status.conf
+	id 0
+	mode dock
+	modifier none
+	tray_output none
+	font pango:System San Francisco Display, FontAwesome 9
 }
 
 # No borders on edges of the screen
@@ -190,6 +191,17 @@ for_window [class="libreoffice"] move container to workspace $ws4
 
 # Set default layouts for workspaces
 for_window [workspace=$ws9] layout tabbed
+
+# backlight controls
+bindsym XF86MonBrightnessUp exec backlight 32
+bindsym XF86MonBrightnessDown exec backlight -32
+bindsym Shift+XF86MonBrightnessUp exec backlight 1
+bindsym Shift+XF86MonBrightnessDown exec backlight -1
+
+# volume controls
+bindsym XF86AudioMute exec amixer sset Master toggle
+bindsym XF86AudioRaiseVolume exec amixer -- set Master playback 3dB+
+bindsym XF86AudioLowerVolume exec amixer -- set Master playback 3dB-
 
 # Open terminal on startup
 exec xterm
