@@ -1,33 +1,12 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Maintainer: 
-"       Amir Salihefendic — @amix3k
-"
-" Awesome_version:
-"       Get this config, nice color schemes and lots of plugins!
-"
-"       Install the awesome version from:
-"
-"           https://github.com/amix/vimrc
-"
-" Sections:
-"    -> General
-"    -> Plugins
-"    -> VIM user interface
-"    -> Colors and Fonts
-"    -> Files and backups
-"    -> Text, tab and indent related
-"    -> Visual mode related
-"    -> Moving around, tabs and buffers
-"    -> Status line
-"    -> Editing mappings
-"    -> vimgrep searching and cope displaying
-"    -> Spell checking
-"    -> Misc
-"    -> Helper functions
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
+let g:os = "unknown"
+if has("unix")
+	let s:uname = system("uname -s | tr -d '\n'")
+	if s:uname ==? "Darwin"
+		let g:os = "osx"
+	else
+		let g:os = "linux"
+	endif
+endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -218,50 +197,53 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
 
 " Smart way to move between windows
-noremap <M-i> <C-w>k
-noremap <M-j> <C-w>h
-noremap <M-k> <C-w>j
-noremap <M-l> <C-w>l
-noremap <S-M-i> <C-w>K
-noremap <S-M-j> <C-w>H
-noremap <S-M-k> <C-w>J
-noremap <S-M-l> <C-w>L
-noremap <M-Up> <C-w>k
-noremap <M-Left> <C-w>h
-noremap <M-Down> <C-w>j
-noremap <M-Right> <C-w>l
-noremap <S-M-Up> <C-w>K
-noremap <S-M-Left> <C-w>H
-noremap <S-M-Down> <C-w>J
-noremap <S-M-Right> <C-w>L
-inoremap <M-i> <C-o><C-w>k
-inoremap <M-j> <C-o><C-w>h
-inoremap <M-k> <C-o><C-w>j
-inoremap <M-l> <C-o><C-w>l
-inoremap <S-M-i> <C-o><C-w>K
-inoremap <S-M-j> <C-o><C-w>H
-inoremap <S-M-k> <C-o><C-w>J
-inoremap <S-M-l> <C-o><C-w>L
-inoremap <M-Up> <C-o><C-w>k
-inoremap <M-Left> <C-o><C-w>h
-inoremap <M-Down> <C-o><C-w>j
-inoremap <M-Right> <C-o><C-w>l
-inoremap <S-M-Up> <C-o><C-w>K
-inoremap <S-M-Left> <C-o><C-w>H
-inoremap <S-M-Down> <C-o><C-w>J
-inoremap <S-M-Right> <C-o><C-w>L
-noremap <M-_> <C-w>_
-noremap <M-q> <C-w>q
-noremap <M-S-t> <C-w>T
-noremap <M--> <C-w>-
-noremap <M-+> <C-w>+
-noremap ¾ <C-w>>
-noremap ¼ <C-w><
+if g:os == "osx"
+	noremap ı <C-w>k
+	noremap √ <C-w>h
+	noremap ª <C-w>j
+	noremap ﬁ <C-w>l
+	noremap ˆ <C-w>K
+	noremap ¬ <C-w>H
+	noremap º <C-w>J
+	noremap ﬂ <C-w>L
+
+	noremap ≤ <C-w><
+	noremap ≥ <C-w>>
+	noremap – <C-w>-
+	noremap ± <C-w>+
+	noremap • <C-w>q
+	noremap — <C-w>_
+	noremap ‡ <C-w>T
+elseif g:os == "linux"
+	noremap <M-i> <C-w>k
+	noremap <M-j> <C-w>h
+	noremap <M-k> <C-w>j
+	noremap <M-l> <C-w>l
+	noremap <S-M-i> <C-w>K
+	noremap <S-M-j> <C-w>H
+	noremap <S-M-k> <C-w>J
+	noremap <S-M-l> <C-w>L
+	noremap <M-Up> <C-w>k
+	noremap <M-Left> <C-w>h
+	noremap <M-Down> <C-w>j
+	noremap <M-Right> <C-w>l
+	noremap <S-M-Up> <C-w>K
+	noremap <S-M-Left> <C-w>H
+	noremap <S-M-Down> <C-w>J
+	noremap <S-M-Right> <C-w>L
+	noremap <M-_> <C-w>_
+	noremap <M-q> <C-w>q
+	noremap <M-S-t> <C-w>T
+	noremap <M--> <C-w>-
+	noremap <M-+> <C-w>+
+	noremap ¾ <C-w>>
+	noremap ¼ <C-w><
+endif
+
 
 " Moving between tabs
 noremap <C-n> :tabNext<Cr>
@@ -303,9 +285,9 @@ try
 catch
 endtry
 
-" Return to last edit position when opening files (You want this!)
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
+" Save folds and cursor position after editing a file
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview 
 
 """"""""""""""""""""""""""""""
 " => Status line
@@ -375,20 +357,6 @@ noremap <C-Up> <C-u>
 noremap <C-Down> <C-d>
 noremap <S-Up> <C-u>
 noremap <S-Down> <C-d>
-
-" Move a line of text using ALT+[jk] or Command+[jk] on mac
-"nmap <M-Up> mz:m-2<cr>`z
-"vmap <M-Up> :m'<-2<cr>`>my`<mzgv`yo`z
-"nmap <M-Down> mz:m+<cr>`z
-"vmap <M-Down> :m'>+<cr>`<my`>mzgv`yo`z
-"
-"map <M-i> <M-Up>
-"map <M-k> <M-Down>
-"
-"if has("mac") || has("macunix")
-"  map <D-j> <M-Up>
-"  map <D-k> <M-Down>
-"endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
