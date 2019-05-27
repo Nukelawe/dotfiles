@@ -10,3 +10,5 @@ source ~/.bash_aliases
 
 export PATH="$HOME/bin:$PATH"
 
+# make .bashrc and .bash_profle the same file
+ln $HOME/.bashrc $HOME/.bash_profile
