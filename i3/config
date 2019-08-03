@@ -35,6 +35,7 @@ bindsym $win+q kill
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 bindsym $win+space exec --no-startup-id i3-dmenu-desktop --dmenu='dmenu -i -l 6'
+bindsym $win+p exec rofi-pass
 
 # change focus
 bindsym $win+j focus left
@@ -187,7 +188,7 @@ for_window [class="jetbrains-idea-ce"] move container to workspace $ws4
 for_window [class="MATLAB*"] move container to workspace $ws4
 for_window [title="Minecraft Launcher*"] move container to workspace $ws9
 for_window [class="libreoffice"] move container to workspace $ws4
-#for_window [class="mcedit.py"] fullscreen toggle
+for_window [window_role="GtkFileChooserDialog"] floating toggle
 
 # Set default layouts for workspaces
 for_window [workspace=$ws9] layout tabbed
@@ -204,5 +205,5 @@ bindsym XF86AudioRaiseVolume exec amixer -- set Master playback 3dB+
 bindsym XF86AudioLowerVolume exec amixer -- set Master playback 3dB-
 
 # Open terminal on startup
-exec xterm
-
+exec --no-startup-id i3-msg 'workspace 1; exec xterm'
+workspace 1 output primary
