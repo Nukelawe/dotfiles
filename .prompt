@@ -22,9 +22,9 @@ function set_git_branch {
   git_status="$(git status 2> /dev/null)"
 
   # Set color based on clean/staged/dirty.
-  if [[ ${git_status} =~ "working directory clean" ]]; then
+  if echo ${git_status} | grep -Eq "working directory clean"; then
     state="${GREEN}"
-  elif [[ ${git_status} =~ "Changes to be committed" ]]; then
+  elif echo ${git_status} | grep -Eq "Changes to be committed"; then
     state="${YELLOW}"
   else
     state="${LIGHT_RED}"

@@ -1,3 +1,5 @@
+source $HOME/.prompt
+
 # Environment variables
 export PATH="$HOME/bin:$PATH"
 export EDITOR=vim
