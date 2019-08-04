@@ -1,3 +1,13 @@
 [user]
+	name = Nukelawe
 	email = nukelawe@gmail.com
-	name = nukelawe
+[push]
+	default = simple
+[pull]
+	rebase = true
+[core]
+	excludesfile = $HOME/.gitignore_global
+	commentchar = "#"
+	editor = vim
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%H%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=format:'%d.%m.%Y'
