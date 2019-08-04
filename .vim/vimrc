@@ -1,0 +1,294 @@
+" Detect operating system
+let g:os = "unknown"
+if has("unix")
+	let s:uname = system("uname -s | tr -d '\n'")
+	if s:uname ==? "Darwin"
+		let g:os = "osx"
+	else
+		let g:os = "linux"
+	endif
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" install vimplug if needed
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" initialize plugins
+call plug#begin()
+Plug 'Nukelawe/kalahari.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'pangloss/vim-javascript'
+Plug 'vim-syntastic/syntastic'
+Plug 'junegunn/fzf'
+
+" Clean and install from https://github.com/nhooyr/dotfiles/blob/fc64cf3c551d61c608ddee7e2b1b68e2b9a09074/.config/nvim/init.vim#L167-L186
+let s:need_install_list = keys(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
+let s:need_clean = len(s:need_install_list) + len(globpath(g:plug_home, '*', 0, 1)) > len(filter(values(g:plugs), 'stridx(v:val.dir, g:plug_home) == 0'))
+let s:need_install = join(s:need_install_list, ' ')
+if has('vim_starting')
+	if s:need_clean
+		autocmd VimEnter * PlugClean!
+	endif
+	if len(s:need_install)
+		execute 'autocmd VimEnter * PlugInstall --sync' s:need_install '| source $MYVIMRC'
+		finish
+	endif
+else
+	if s:need_clean
+		PlugClean!
+	endif
+	if len(s:need_install)
+		execute 'PlugInstall --sync' s:need_install '| source $MYVIMRC'
+		finish
+	endif
+endif
+call plug#end()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Sets how many lines of history VIM has to remember
+set history=500
+
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
+
+" Set to auto read when a file is changed from the outside
+set noautoread
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VIM user interface
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Keep cursor stationary in the middle of the screen
+set scrolloff=999
+set winminwidth=0
+set winminheight=0
+
+autocmd VimResized * let &scroll = (8 * winheight(0) / 10)
+autocmd VimEnter * let &scroll = (8 * winheight(0) / 10)
+
+" Avoid garbled characters in Chinese language windows OS
+let $LANG='en'
+set langmenu=en
+
+" Turn on the Wild menu
+set wildmenu
+
+" Ignore compiled files
+set wildignore=*.o,*~,*.pyc
+if has("win16") || has("win32")
+	set wildignore+=.git\*,.hg\*,.svn\*
+else
+	set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+endif
+
+"Always show current position
+set ruler
+
+" Height of the command bar
+set cmdheight=2
+
+" A buffer becomes hidden when it is abandoned
+set hid
+
+" Configure backspace so it acts as it should act
+set backspace=eol,start,indent
+set whichwrap+=<,>,h,l
+
+" Ignore case when searching
+set ignorecase
+
+" When searching try to be smart about cases
+set smartcase
+
+" Highlight search results
+set hlsearch
+
+" Highlight matches as the expression is being typed
+set incsearch
+
+" Don't redraw while executing macros (good performance config)
+set lazyredraw
+
+" For regular expressions turn magic off
+set nomagic
+
+" Show matching brackets when text indicator is over them
+set showmatch
+
+" How many tenths of a second to blink when matching brackets
+set mat=2
+
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+" Properly disable sound on errors on MacVim
+if has("gui_macvim")
+	autocmd GUIEnter * set vb t_vb=
+endif
+
+" Folding
+set foldcolumn=1
+set foldmethod=syntax
+set foldlevelstart=1
+let javaScript_fold=1
+let perl_fold=1
+let php_folding=1
+let r_syntax_folding=1
+let ruby_fold=1
+let sh_fold_enabled=1
+let vimsyn_folding='af'
+let xml_syntax_folding=1
+
+" show modifiers
+set showcmd
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colors and Fonts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set t_Co=256 " Enable 256 colors
+set encoding=utf8 "Set utf8 as standard encoding and en_US as the standard language
+set ffs=unix,dos,mac "Use Unix as the standard file type
+set background=dark
+
+syntax enable "Enable syntax highlighting
+au BufReadPost *.gs set syntax=javascript
+colorscheme kalahari
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Files, backups and undo
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+set nobackup
+set nowb
+set noswapfile
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Text, tab and indent related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"set expandtab
+set smarttab
+set shiftwidth=4 "1 tab == 4 spaces
+set tabstop=4
+set autoindent "ai"
+set smartindent "si"
+set wrap
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Moving around, tabs, windows and buffers
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Specify the behavior when switching between buffers
+try
+	set switchbuf=useopen,usetab,newtab
+	set showtabline=1
+catch
+endtry
+
+" Save folds and cursor position after editing a file
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview
+
+""""""""""""""""""""""""""""""
+" => Status line
+""""""""""""""""""""""""""""""
+" Always show the status line
+set laststatus=2
+
+" Format the status line
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ %r%{getcwd()}%h\ \ L\%l/%L\ \ C%c
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Editing mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+mapclear " clear all mappings for re-sourcing vimrc
+runtime mappings.vim
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Misc
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Delete trailing white space on save, useful for some filetypes ;)
+fun! CleanExtraSpaces()
+	let save_cursor = getpos(".")
+	let old_query = getreg('/')
+	silent! %s/\s\+$//e
+	call setpos('.', save_cursor)
+	call setreg('/', old_query)
+endfun
+
+if has("autocmd")
+	autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
+endif
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Helper functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Returns true if paste mode is enabled
+function! HasPaste()
+	if &paste
+		return 'PASTE MODE  '
+	endif
+	return ''
+endfunction
+
+" Don't close window, when deleting a buffer
+command! Bclose call <SID>BufcloseCloseIt()
+function! <SID>BufcloseCloseIt()
+	let l:currentBufNum = bufnr("%")
+	let l:alternateBufNum = bufnr("#")
+
+	if buflisted(l:alternateBufNum)
+		buffer #
+	else
+		bnext
+	endif
+
+	if bufnr("%") == l:currentBufNum
+		new
+	endif
+
+	if buflisted(l:currentBufNum)
+		execute("bdelete! ".l:currentBufNum)
+	endif
+endfunction
+
+function! CmdLine(str)
+	call feedkeys(":" . a:str)
+endfunction
+
+function! VisualSelection(direction, extra_filter) range
+	let l:saved_reg = @"
+	execute "normal! vgvy"
+
+	let l:pattern = escape(@", "\\/.*'$^~[]")
+	let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+	if a:direction == 'gv'
+		call CmdLine("Ack '" . l:pattern . "' " )
+	elseif a:direction == 'replace'
+		call CmdLine("%s" . '/'. l:pattern . '/')
+	endif
+
+	let @/ = l:pattern
+	let @" = l:saved_reg
+endfunction
+
+" This enables the use of project specific vimrc files
+set exrc
+set secure
+
