@@ -1,7 +1,7 @@
 #
 # ~/.profile
 #
-if test ! $DISPLAY && test $XDG_VTNR -eq 1; then
+if test ! $DISPLAY && echo $XDG_VTNR | grep '[01]' && test $XDG_VTNR -eq 1 ; then
 	exec startx
 fi
 
