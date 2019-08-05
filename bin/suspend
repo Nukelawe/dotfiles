@@ -1,0 +1,5 @@
+#!/bin/sh
+lock &
+sleep 0.2
+systemctl suspend
+xset +dpms dpms 5 5 5
