@@ -22,33 +22,9 @@ endif
 " initialize plugins
 call plug#begin()
 Plug 'Nukelawe/kalahari.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'pangloss/vim-javascript'
 Plug 'vim-syntastic/syntastic'
 Plug 'junegunn/fzf'
-
-" Clean and install from https://github.com/nhooyr/dotfiles/blob/fc64cf3c551d61c608ddee7e2b1b68e2b9a09074/.config/nvim/init.vim#L167-L186
-let s:need_install_list = keys(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
-let s:need_clean = len(s:need_install_list) + len(globpath(g:plug_home, '*', 0, 1)) > len(filter(values(g:plugs), 'stridx(v:val.dir, g:plug_home) == 0'))
-let s:need_install = join(s:need_install_list, ' ')
-if has('vim_starting')
-	if s:need_clean
-		autocmd VimEnter * PlugClean!
-	endif
-	if len(s:need_install)
-		execute 'autocmd VimEnter * PlugInstall --sync' s:need_install '| source $MYVIMRC'
-		finish
-	endif
-else
-	if s:need_clean
-		PlugClean!
-	endif
-	if len(s:need_install)
-		execute 'PlugInstall --sync' s:need_install '| source $MYVIMRC'
-		finish
-	endif
-endif
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -61,16 +37,14 @@ set history=500
 filetype plugin on
 filetype indent on
 
-" Set to auto read when a file is changed from the outside
+" Do not update when file is changed from the outside
 set noautoread
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => VIM user interface
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Keep cursor stationary in the middle of the screen
 set scrolloff=999
 set winminwidth=0
 set winminheight=0
+set number relativenumber
 
 autocmd VimResized * let &scroll = (8 * winheight(0) / 10)
 autocmd VimEnter * let &scroll = (8 * winheight(0) / 10)
@@ -154,18 +128,16 @@ let xml_syntax_folding=1
 " show modifiers
 set showcmd
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors and Fonts
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Fonts and colors
 set t_Co=256 " Enable 256 colors
 set encoding=utf8 "Set utf8 as standard encoding and en_US as the standard language
 set ffs=unix,dos,mac "Use Unix as the standard file type
 set background=dark
-
-syntax enable "Enable syntax highlighting
-au BufReadPost *.gs set syntax=javascript
 colorscheme kalahari
+
+" Enable syntax highlighting
+syntax enable
+autocmd BufReadPost *.gs set syntax=javascript
 
 " Highlight extra trailing whitespace
 highlight ExtraWhitespace ctermbg=red guibg=red
@@ -175,50 +147,34 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Files, backups and undo
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Turn backup off, since most stuff is in SVN, git et.c anyway...
+" Turn backup off
 set nobackup
-set nowb
+set nowritebackup
 set noswapfile
+" Additionally no undofile when editing passwords
+autocmd BufNewFile,BufRead /dev/shm/pass.* setlocal noswapfile nobackup noundofile
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text, tab and indent related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"set expandtab
+" Tabbing and indentation
 set smarttab
 set shiftwidth=4 "1 tab == 4 spaces
 set tabstop=4
-set autoindent "ai"
-set smartindent "si"
-set wrap
+set autoindent
+set smartindent
+set nowrap
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Moving around, tabs, windows and buffers
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Specify the behavior when switching between buffers
-try
-	set switchbuf=useopen,usetab,newtab
-	set showtabline=1
-catch
-endtry
+set switchbuf=useopen,usetab
+set showtabline=1
 
-" Save folds and cursor position after editing a file
+" Save folds and cursor position after editing a file with a type suffix
 autocmd BufWinLeave *.* mkview
 autocmd BufWinEnter *.* silent loadview
 
-""""""""""""""""""""""""""""""
-" => Status line
-""""""""""""""""""""""""""""""
 " Always show the status line
 set laststatus=2
 
 " Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ %r%{getcwd()}%h\ \ L\%l/%L\ \ C%c
+set statusline=%F%m%r%h\ %w\ \ %r%{getcwd()}%h\ \ L\%l/%L\ \ C%c
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
@@ -226,9 +182,6 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ %r%{getcwd()}%h\ \ L\%l/%L\ \ C%c
 mapclear " clear all mappings for re-sourcing vimrc
 runtime mappings.vim
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Misc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Delete trailing white space on save, useful for some filetypes ;)
 fun! CleanExtraSpaces()
 	let save_cursor = getpos(".")
@@ -241,18 +194,6 @@ endfun
 if has("autocmd")
 	autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
 endif
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Helper functions
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Returns true if paste mode is enabled
-function! HasPaste()
-	if &paste
-		return 'PASTE MODE  '
-	endif
-	return ''
-endfunction
 
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
@@ -299,4 +240,3 @@ endfunction
 " This enables the use of project specific vimrc files
 set exrc
 set secure
-

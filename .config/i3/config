@@ -35,7 +35,7 @@ bindsym $win+q kill
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 bindsym $win+space exec --no-startup-id i3-dmenu-desktop --dmenu='dmenu -i -l 6'
-bindsym $win+p exec rofi-pass
+bindsym $win+p exec rofi-pass --last-used
 
 # change focus
 bindsym $win+j focus left
