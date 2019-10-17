@@ -25,6 +25,7 @@ Plug 'Nukelawe/kalahari.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'vim-syntastic/syntastic'
 Plug 'junegunn/fzf'
+Plug 'lervag/vimtex'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -35,7 +36,8 @@ set history=500
 
 " Enable filetype plugins
 filetype plugin on
-filetype indent on
+filetype plugin indent on
+let g:tex_flavor = 'latex'
 
 " Do not update when file is changed from the outside
 set noautoread
