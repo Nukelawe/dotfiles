@@ -4,7 +4,8 @@ source $HOME/.prompt
 export PATH="$HOME/bin:$PATH"
 export EDITOR=vim
 
-# Aliases 
+# Aliases
 alias ls="ls -b --color=auto --group-directories-first"
+alias lsa="ls -A"
 alias ll="ls -lh --time-style='+%d.%m %R'"
-alias la="ls -Ah"
+alias lla="ll -A"
