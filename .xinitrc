@@ -23,6 +23,11 @@ if [ -f "$usermodmap" ]; then
     xmodmap "$usermodmap"
 fi
 
+# redshift screen color for eye pleasure
+if [ -x "$(command -v redshift)" ]; then
+    redshift -P -O 2500
+fi
+
 # start some nice programs
 if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
@@ -35,10 +40,11 @@ fi
 export PATH="$PATH:$HOME/bin"
 
 setxkbmap -layout fi # Set keyboard layout
+if [ -f "$userkeys" ]; then
+	xkbcomp $userkeys $DISPLAY
+fi
+
 xset r rate 200 30 # Set key delay and rate
 # start the window manager i3
 exec i3 -c $HOME/.config/i3/config
 
-if [ -f "$userkeys" ]; then
-	xkbcomp .Xkeymap $DISPLAY
-fi
