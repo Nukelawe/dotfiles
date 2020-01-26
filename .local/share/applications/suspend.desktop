@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Suspend
+GenericName=Suspend
+Comment=Sleep the computer
+Exec=bash -ic "suspend-system"

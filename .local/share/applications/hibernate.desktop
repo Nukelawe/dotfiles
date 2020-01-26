@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Hibernate
+GenericName=Hibernate
+Comment=Hibernate the computer
+Exec=bash -ic "hibernate-system"
