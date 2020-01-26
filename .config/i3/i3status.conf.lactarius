@@ -1,28 +1,38 @@
 general {
-        output_format = "i3bar"
-        colors = true
-        color_degraded = "#FFFF00"
-        interval = 1
+	output_format = "i3bar"
+	colors = true
+	color_degraded = "#FFFF00"
+	interval = 1
+	separator = "|"
 }
 
 order  = ""
-order += "battery all"
 order += "wireless _first_"
+order += "battery all"
+order += "volume master"
 order += "time"
 
 wireless _first_ {
-        format_up = "%essid%quality"
-        format_down = "no wifi"
+	format_up = "%essid %quality"
+	format_down = " -"
 }
 
 time {
-        format = "%Y.%m.%d %H:%M  "
+	format = "%Y.%m.%d %H:%M "
 }
 
 battery all {
-        format = "%percentage %remaining"
-        hide_seconds = true
-		format_down = "no battery"
-        path = "/sys/class/power_supply/BAT%d/uevent"
-        low_threshold = 10
+	format = " %percentage"
+	hide_seconds = true
+	format_down = "no battery"
+	path = "/sys/class/power_supply/BAT%d/uevent"
+	low_threshold = 10
+}
+
+volume master {
+	format = " %volume"
+	format_muted = "%volume"
+	device = "default"
+	mixer = "Master"
+	mixer_idx = 0
 }
