@@ -45,6 +45,7 @@ if [ -f "$userkeys" ]; then
 fi
 
 xset r rate 200 30 # Set key delay and rate
+xset b off # Turn terminal beep off
 # start the window manager i3
 exec i3 -c $HOME/.config/i3/config
 
