@@ -1263,7 +1263,7 @@ xkb_symbols "pc+fi+inet(evdev)" {
     };
     key <AD08> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
-        symbols[Group1]= [i, I, Up, Page_Up ]
+        symbols[Group1]= [i, I, i, I]
     };
     key <AD09> {
         type= "FOUR_LEVEL_ALPHABETIC",
@@ -1305,15 +1305,15 @@ xkb_symbols "pc+fi+inet(evdev)" {
     };
     key <AC06> {
         type= "FOUR_LEVEL_ALPHABETIC",
-        symbols[Group1]= [               h,               H,               h,               H ]
+        symbols[Group1]= [h, H, Left, Begin]
     };
     key <AC07> {
         type= "FOUR_LEVEL_ALPHABETIC",
-        symbols[Group1]= [j, J, Left, Begin]
+        symbols[Group1]= [j, J, Down, Page_Down]
     };
     key <AC08> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
-        symbols[Group1]= [k, K, Down, Page_Down]
+        symbols[Group1]= [k, K, Up, Page_Up]
     };
     key <AC09> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
