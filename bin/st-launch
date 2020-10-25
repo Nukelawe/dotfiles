@@ -1,0 +1,4 @@
+#!/bin/sh
+st -f SourceCodePro-Bold:size=9:antialias=true &
+pid=$!
+xdotool search --sync --onlyvisible --name "st" set_window --name "$pid"
