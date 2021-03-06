@@ -3,7 +3,7 @@ title="template$(date +%s)" # temporary window title
 active_window_pid=$(xdotool getactivewindow getwindowpid)
 active_window_type=$(ps -q $active_window_pid -o comm=)
 process_tree=$(pstree $active_window_pid -p)
-cwd=$HOME
+cwd=$@
 
 # if the currently active window is a terminal, start the new window in the same directory unless there is
 if [ $active_window_type = 'st' ]
