@@ -1,4 +1,18 @@
 #!/bin/sh
-st -f SourceCodePro-Bold:size=9:antialias=true &
-pid=$!
-xdotool search --sync --onlyvisible --name "st" set_window --name "$pid"
+title="template$(date +%s)" # temporary window title
+active_window_pid=$(xdotool getactivewindow getwindowpid)
+active_window_type=$(ps -q $active_window_pid -o comm=)
+process_tree=$(pstree $active_window_pid -p)
+cwd=$HOME
+
+# if the currently active window is a terminal, start the new window in the same directory unless there is
+if [ $active_window_type = 'st' ]
+then
+	shell_pid=$(echo $process_tree | sed -ne 's/.*bash(//;s/).*//p;q')
+	cwd=$(pwdx $shell_pid | sed -ne 's/.* //p;q')
+fi
+st -f SourceCodePro-Bold:size=9:antialias=true -t $title -e bash -c "cd $cwd; bash" &
+
+# display process id in the window title
+window_pid=$(xdotool search --sync --onlyvisible --name $title getwindowpid)
+xdotool search --sync --onlyvisible --name $title set_window --name $window_pid
