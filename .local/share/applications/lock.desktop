@@ -1,6 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Lock
-GenericName=Lock
-Comment=Lock the computer
-Exec=bash -ic "lock-system"

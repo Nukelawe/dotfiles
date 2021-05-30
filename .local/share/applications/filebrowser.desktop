@@ -1,4 +1,0 @@
-[Desktop Entry]
-Name=st
-GenericName=Terminal
-Exec=st-launch %f
