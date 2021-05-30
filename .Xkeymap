@@ -1384,7 +1384,7 @@ xkb_symbols "pc+fi+inet(evdev)" {
     key <LALT> {         [           Alt_L,          Meta_L ] };
     key <SPCE> {
         type= "FOUR_LEVEL",
-        symbols[Group1]= [           space,           space,    nobreakspace,        NoSymbol ]
+        symbols[Group1]= [           space,           space,           space,        NoSymbol ]
     };
     key <CAPS> {         [       Caps_Lock ] };
     key <FK01> {
